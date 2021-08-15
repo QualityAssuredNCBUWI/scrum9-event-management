@@ -28,7 +28,7 @@ cover-lay {
 
 .form-col{
     position: relative;
-    border: 2px solid red;
+    border: 2px solid rgb(0, 0, 0);
     background-color: rgb(255, 255, 255);
     mix-blend-mode: lighten;
     min-height: 100%;
@@ -43,7 +43,8 @@ form-container {
 
 .input{
     border-bottom: 3px solid black;
-    border-left: 3px solid black;
+    border-left: 2px solid black;
+    margin-bottom: 0.8em;
 }
 
 action-buttons {
