@@ -1,0 +1,4 @@
+ion-grid.events{
+    grid-template-columns: repeat(2, 1fr);
+    /* grid-auto-rows: 1fr; */
+}
