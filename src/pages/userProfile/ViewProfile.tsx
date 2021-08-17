@@ -16,7 +16,16 @@ interface User {
 
 const ViewProfile: React.FC = () => {
 
-    const [user, setUser] = useState<User>();
+    const def = {
+        id: -1,
+        first_name: '',
+        last_name: '',
+        email: '',
+        profile_photo: -1,
+        created_at: ''
+      }
+    const [user, setUser] = useState<User>(def);
+    const [auth, setAuth] = useState<boolean>();
 
     useIonViewWillEnter(() => {
         // call api
@@ -27,19 +36,19 @@ const ViewProfile: React.FC = () => {
             // import service call to get all events here
             const response = await fetch("http://127.0.0.1:8079/api/user/current", {
                 headers: {
-                    // 'Accept': 'application/json',
-                    // 'Authorization': "Bearer " + getCookie('token')
+                    'Accept': 'application/json',
+                    'Authorization': "Bearer " + localStorage.getItem('token')
                 }
             });
             if(response.status == 200){
                 const data = await response.json();
                 console.log(data);
-                // store the data into our news state variable
+                setUser(data.user);
                 
             } else if(response.status == 404){
-                setUser({});
+                setAuth(false);
             } else if(response.status == 406){
-                setUser({});
+                setAuth(false);
             }
         }
     }, []);
@@ -74,7 +83,7 @@ const ViewProfile: React.FC = () => {
             </IonHeader>
             <IonContent  className="contain" fullscreen>
                 <IonGrid id="page">
-                    { user != {} ? 
+                    { user === def ? 
                         <IonRow>
                             <IonCol>
                                 <IonItem>
