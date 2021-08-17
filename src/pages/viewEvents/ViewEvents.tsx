@@ -1,6 +1,6 @@
 import { useIonViewWillEnter, IonCol, IonContent, IonGrid, IonHeader, IonPage, IonRow, IonTitle, IonToolbar, IonItem, IonList, IonMenu, IonSplitPane, IonButtons, IonButton, IonMenuButton, IonSearchbar, IonDatetime, IonIcon } from '@ionic/react';
 import { calendarClearOutline } from 'ionicons/icons';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Event from '../../components/Event';
 import './ViewEvents.css';
 
@@ -39,13 +39,13 @@ const ViewEvents: React.FC = () => {
         async function getEventsbyDate(){
             // import service call to get all events here
             const response = await fetch(`http://127.0.0.1:8079/api/events?start_date=${start_date}&end_date=${end_date}`);
-            if(response.status == 200){
+            if(response.status === 200){
                 const data = await response.json();
                 console.log(data);
                 // store the data into our news state variable
                 setEvents(data.result);
                 setFilteredEvents(data.result);
-            } else if(response.status == 404){
+            } else if(response.status === 404){
                 setEvents([]);
                 setFilteredEvents([]);
             }

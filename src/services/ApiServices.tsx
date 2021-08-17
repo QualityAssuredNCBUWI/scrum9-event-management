@@ -3,15 +3,9 @@ interface LoginCred {
     password: string
 }
 
-export function login_user(body:LoginCred) {
+export function login_user(body:LoginCred){
     // send request to endpoint
-    fetch(`http://127.0.0.1:8079/api/auth/login`,{
-        method: 'POST',
-        body: JSON.stringify(body)
-    })
-    .then(response => {
-        return response;
-    })
+    console.log("called");
 }
 
 export function sign_up(body:object){
