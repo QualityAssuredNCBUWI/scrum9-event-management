@@ -18,7 +18,7 @@ const Event: React.FC<ContainerProps> = ({event_id, event_name, event_descriptio
                         <IonLabel>{event_date}</IonLabel>
                     </IonItem>
                     <IonItem>
-                        <IonIcon icon={ accessibilityOutline } />
+                        <IonIcon icon={ accessibilityOutline } slot='start' />
                         <IonLabel>Attendees: {event_attendance}</IonLabel>
                     </IonItem>
 					<div className="ion-text-left">
