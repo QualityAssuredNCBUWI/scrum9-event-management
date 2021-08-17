@@ -2,6 +2,7 @@ import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonPage, I
 import './Login.css';
 import { login_user } from '../../services/ApiServices'
 import { useState } from 'react';
+import { Redirect } from 'react-router';
 
 const Login: React.FC = () => {
 
@@ -10,7 +11,18 @@ const Login: React.FC = () => {
 
     const loginSubmit = (e:any) => {
         const loginBody = {email: email, password: password}
-        login_user(loginBody)
+        const response: any = login_user(loginBody);
+        if(response.status == 200){
+            const data = response.json();
+            console.log(data);
+            // store the data into our news state variable
+        } else if(response.status == 400){
+            
+        } else if(response.status == 404){
+            
+        } else if(response.status == 404){
+            
+        }
     }
 
     return (
