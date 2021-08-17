@@ -24,8 +24,8 @@ const ViewEvents: React.FC = () => {
         // console.log(value);
         let result = [];
         result = events.filter((data:any) => {
-            // return data.title.search(value) != -1;
-            return JSON.stringify(data).toLowerCase().indexOf(value) > -1;
+            return data.title.toLowerCase().indexOf(value) > -1 || data.description.toLowerCase().indexOf(value) > -1;
+            // return JSON.stringify(data).toLowerCase().indexOf(value) > -1;
         });
         setFilteredEvents(result);
     }
