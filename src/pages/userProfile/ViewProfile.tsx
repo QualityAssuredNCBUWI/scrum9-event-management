@@ -1,8 +1,8 @@
-import { useIonViewWillEnter, IonCol, IonContent, IonGrid, IonHeader, IonPage, IonRow, IonTitle, IonToolbar, IonItem, IonList, IonMenu, IonSplitPane, IonButtons, IonButton, IonMenuButton, IonSearchbar, IonDatetime, IonIcon } from '@ionic/react';
-import { calendarClearOutline } from 'ionicons/icons';
-import { useState, useEffect } from 'react';
+import { useIonViewDidEnter, useIonViewWillLeave ,IonCol, IonContent, IonGrid, IonHeader, IonPage, IonRow, IonTitle, IonToolbar, IonItem, IonList, IonMenu, IonSplitPane, IonButtons, IonMenuButton, useIonViewWillEnter } from '@ionic/react';
+// import { calendarClearOutline } from 'ionicons/icons';
+import { useState } from 'react';
 import { Redirect } from 'react-router';
-// import Event from '../../components/Event';
+import { isloggedin } from '../../services/ApiServices';
 
 interface User {
     id: number;
@@ -15,7 +15,6 @@ interface User {
 
 
 const ViewProfile: React.FC = () => {
-
     const def = {
         id: -1,
         first_name: '',
@@ -24,33 +23,39 @@ const ViewProfile: React.FC = () => {
         profile_photo: -1,
         created_at: ''
       }
-    const [user, setUser] = useState<User>(def);
-    const [auth, setAuth] = useState<boolean>();
+    const [user, setUser] = useState(def);
+    const [auth, setAuth] = useState<boolean>(isloggedin());
 
     useIonViewWillEnter(() => {
         // call api
         // console.log("ionWillEnterView event fired");
-        getUserProfile();
+        let isMounted = true;
+        if(isMounted){
+            getUserProfile();
+        }
 
         async function getUserProfile(){
             // import service call to get all events here
-            const response = await fetch("http://127.0.0.1:8079/api/user/current", {
+            const response = await fetch("http://127.0.0.1:8079/api/users/current", {
                 headers: {
                     'Accept': 'application/json',
                     'Authorization': "Bearer " + localStorage.getItem('token')
                 }
             });
-            if(response.status == 200){
+            if(response.status === 200){
                 const data = await response.json();
                 console.log(data);
-                setUser(data.user);
-                
-            } else if(response.status == 404){
-                setAuth(false);
-            } else if(response.status == 406){
-                setAuth(false);
+                if(isMounted) setUser(data.user);
+            } else if(response.status === 404 || response.status === 401){
+                localStorage.removeItem('token');
+                if(isMounted) setAuth(false);
+            } else if(response.status === 406){
+                localStorage.removeItem('token');
+                if(isMounted) setAuth(false);
             }
         }
+
+        return () => isMounted = false;
     }, []);
 
     return (
@@ -81,9 +86,13 @@ const ViewProfile: React.FC = () => {
                 </IonButtons>
                 </IonToolbar>
             </IonHeader>
-            <IonContent  className="contain" fullscreen>
-                <IonGrid id="page">
-                    { user === def ? 
+            {/* { !auth ? <Redirect to={{
+                    pathname: '/login',
+                    state: { flash: 'Session expired.' }
+                }} /> :  */}
+                <IonContent  className="contain" fullscreen>
+                    <IonGrid id="page">
+                        { user ? 
                         <IonRow>
                             <IonCol>
                                 <IonItem>
@@ -91,9 +100,10 @@ const ViewProfile: React.FC = () => {
                                 </IonItem>
                             </IonCol>
                         </IonRow>
-                    : <Redirect to='/login'/>
-                    }
-                </IonGrid>
+                        : 
+                            <Redirect to='/login'/>
+                        }
+                    </IonGrid>
                 <div className="cover-lay"></div>
             </IonContent>
         </IonPage>  

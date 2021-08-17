@@ -11,3 +11,14 @@ export function login_user(body:LoginCred){
 export function sign_up(body:object){
     console.log(body)
 }
+
+export function isloggedin(){
+    let res =  false;
+    if(localStorage.getItem('token')){
+        res = true;
+    } else {
+        res = false;
+    }
+    console.log(res);
+    return res;
+}
