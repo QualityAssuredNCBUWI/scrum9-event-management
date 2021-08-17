@@ -18,6 +18,8 @@ const ViewEvents: React.FC = () => {
 
     const [events, setEvents] = useState([]);
     const [filteredEvents,setFilteredEvents] = useState(events);
+    const [start_date, setStartDate] = useState<string>();
+    const [end_date, setEndDate] = useState<string>();
 
     const handleSearch = (event:any) =>{
         let value = event.target.value.toLowerCase();
@@ -30,9 +32,42 @@ const ViewEvents: React.FC = () => {
         setFilteredEvents(result);
     }
 
+    const handleSubmit = (event:any) => {
+        console.log('button clicked');
+        getEventsbyDate();
+
+        async function getEventsbyDate(){
+            // import service call to get all events here
+            const response = await fetch(`http://127.0.0.1:8079/api/events?start_date=${start_date}&end_date=${end_date}`);
+            if(response.status == 200){
+                const data = await response.json();
+                console.log(data);
+                // store the data into our news state variable
+                setEvents(data.result);
+                setFilteredEvents(data.result);
+            } else if(response.status == 404){
+                setEvents([]);
+                setFilteredEvents([]);
+            }
+            
+        }
+    }
+
+    const handleEndDate = (event:any) => {
+        let value = event.target.value.split('T')[0];
+        console.log(value);
+        setEndDate(value);
+    }
+
+    const handleStartDate = (event:any) => {
+        let value = event.target.value.split('T')[0];
+        setStartDate(value);
+        console.log(value);
+    }
+
     useIonViewWillEnter(() => {
         // call api
-        console.log("ionWillEnterView event fired");
+        // console.log("ionWillEnterView event fired");
         getEvents();
 
         async function getEvents(){
@@ -81,23 +116,29 @@ const ViewEvents: React.FC = () => {
                         <IonCol>
                             <IonButton color="light">
                                 <IonIcon icon={ calendarClearOutline } slot='start' />
-                                <IonDatetime displayFormat="DDDD MMM D, YYYY" placeholder="Select Start Date" ></IonDatetime>
+                                <IonDatetime displayFormat="DDDD MMM D, YYYY" placeholder="Select Start Date" onIonChange={(e) =>handleStartDate(e)} ></IonDatetime>
                             </IonButton>
                         </IonCol>
+                        
                         <IonCol>
                             <IonButton color="light">
                             <IonIcon icon={ calendarClearOutline } slot='start' />
-                                <IonDatetime displayFormat="DDDD MMM D, YYYY" placeholder="Select End Date" ></IonDatetime>
+                                <IonDatetime displayFormat="DDDD MMM D, YYYY" placeholder="Select End Date" onIonChange={(e) =>handleEndDate(e)} ></IonDatetime>
                             </IonButton>
+                        </IonCol>
+                    </IonRow>
+                    <IonRow>
+                        <IonCol className="ion-text-start">
+                            <IonButton onClick={ (e) => handleSubmit(e) } color="primary">Filter</IonButton>
                         </IonCol>
                     </IonRow>
                 </IonGrid>
                     <IonRow>
-                    { filteredEvents.map((event: i_event) => (
+                    { filteredEvents.length ? filteredEvents.map((event: i_event) => (
                     <IonCol>
                         <Event event_id={event.id} event_name={event.title} event_description={event.description} event_date={event.start_date} event_attendance={event.attendance} event_img_url='assets/matty-adame-nLUb9GThIcg-unsplash.jpg'/>
                     </IonCol>
-                    ))}
+                    )) : <IonItem>No events found</IonItem>}
                     </IonRow>
                     </IonGrid>
                 <div className="cover-lay"></div>
