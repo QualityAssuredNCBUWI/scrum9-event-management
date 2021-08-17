@@ -1,16 +1,42 @@
 import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import './Login.css';
-import { login_user } from '../../services/ApiServices'
+// import { login_user } from '../../services/ApiServices'
 import { useState } from 'react';
+import { Redirect } from 'react-router';
 
 const Login: React.FC = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [auth, setAuth] = useState<boolean>();
 
     const loginSubmit = (e:any) => {
         const loginBody = {email: email, password: password}
-        login_user(loginBody)
+        login();
+
+        async function login(){
+            // import service call to get all events here
+            const response = await fetch(`http://127.0.0.1:8079/api/auth/login`,{
+                headers: {
+                    'Content-Type': 'application/json'
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                  },
+                method: 'POST',
+                body: JSON.stringify(loginBody)
+            });
+            if(response.status === 200){
+                const data = await response.json();
+                console.log(data);
+                // store the token into localstorage
+                localStorage.setItem('token', data.token);
+                setAuth(true)
+            } else if(response.status === 400 || response.status === 404 || response.status === 500){
+                const data = await response.json();
+                console.log(data);
+                // store the token into localstorage
+                setAuth(false)
+            }
+        }
     }
 
     return (
@@ -21,6 +47,13 @@ const Login: React.FC = () => {
             </IonToolbar>
         </IonHeader>
         <IonContent  className="contain" fullscreen>
+            {auth ? <Redirect to={{
+                    pathname: '/home',
+                    state: { flash: 'Login Successful!' }
+                }} /> : <Redirect to={{
+                    pathname: '/login',
+                    state: { flash: 'Username or password is incorrect...' }
+                }} />}
             <IonGrid id="page">
                 <IonRow className="row">
                     <IonCol className="form-col" size="12" size-md="4">
