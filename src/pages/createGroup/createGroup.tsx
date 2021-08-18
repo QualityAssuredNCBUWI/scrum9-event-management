@@ -1,16 +1,16 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
-import './Login.css';
-import { login_user } from '../../services/ApiServices'
+import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonPage, IonRow, IonTextarea, IonTitle, IonToolbar } from '@ionic/react';
+import './createGroup.css';
+import { createGroup } from '../../services/ApiServices'
 import { useState } from 'react';
 
 const CreateGroup: React.FC = () => {
 
     const [groupName, setGroupName] = useState('')
-    const [password, setPassword] = useState('')
+    const [groupDescription, setGroupDesc] = useState('')
 
     const groupSubmit = (e:any) => {
-        const createGroupBody = {groupName: groupName, password: password}
-        login_user(createGroupBody)
+        const createGroupBody = {groupName: groupName, groupDescription: groupDescription}
+        createGroup(createGroupBody)
     }
 
     return (
@@ -28,19 +28,18 @@ const CreateGroup: React.FC = () => {
                             <h2>CREATE YOUR GROUP</h2>
                             <IonInput 
                                 className="input" 
-                                type="groupName" 
+                                type="text" 
                                 placeholder="GroupName" 
-                                onIonChange= {(e:any) => setEmail(e.target.value)}
+                                onIonChange= {(e:any) => setGroupName(e.target.value)}
                             />
-                            <IonInput 
+                            <IonTextarea
                                 className="input mt-2" 
-                                type="password" 
-                                placeholder="Password" 
-                                onIonChange= {(e:any) => setPassword(e.target.value)}
+                                placeholder="A brief description of your group" 
+                                onIonChange= {(e:any) => setGroupDesc(e.target.value)}
                             />
                             <div className="action-buttons">
                                 <IonButton fill="outline" routerLink="/home" color="danger">Cancel</IonButton>
-                                <IonButton fill="outline" onClick={loginSubmit} color="success">submit </IonButton>
+                                <IonButton fill="outline" onClick={groupSubmit} color="success">Submit </IonButton>
                             </div>
                         </div>
                     </IonCol>
