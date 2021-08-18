@@ -16,14 +16,27 @@ import {
   IonMenuButton,
 } from '@ionic/react';
 import {arrowBackOutline, arrowForwardOutline} from 'ionicons/icons'
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Menu from '../components/Menu';
 import { isloggedin } from '../services/ApiServices';
 import './Home.css';
 
+
 const Home: React.FC = () => {
 
   const [auth] = useState<boolean>(isloggedin());
+
+  const onNextSlide = () => {
+    const htmlslides = document.querySelector('ion-slides');
+    if (htmlslides) htmlslides.slideNext();
+  };
+
+  const onPrevSlide = () => {
+    const htmlslides = document.querySelector('ion-slides');
+    if (htmlslides) htmlslides.slidePrev();
+  };
+  
+
   
   return (
     <IonContent>
@@ -52,13 +65,13 @@ const Home: React.FC = () => {
             <IonGrid>
               <IonRow>
                 <IonCol size="4" className="ion-hide-lg-down">
-                  <IonButton fill="outline" color="dark" size="large"><IonIcon icon={arrowBackOutline}></IonIcon></IonButton>
+                  <IonButton fill="outline" color="dark" onClick={() => {onPrevSlide(); console.log('next')}} size="large"><IonIcon icon={arrowBackOutline}></IonIcon></IonButton>
                 </IonCol>
-                <IonCol className="" size="4">
+                <IonCol className="" size="12" size-md="4">
                   <h2>Up Coming Events</h2>
                 </IonCol>
                 <IonCol size="4" className="ion-hide-lg-down">
-                  <IonButton fill="outline" color="dark" size="large"><IonIcon icon={arrowForwardOutline}></IonIcon></IonButton>
+                  <IonButton fill="outline" color="dark" size="large"  onClick={() => {onNextSlide(); console.log('next')} }><IonIcon icon={arrowForwardOutline}></IonIcon></IonButton>
                 </IonCol>
                 <IonCol size="12">
                   <IonSlides pager={true} className="ion-padding">
