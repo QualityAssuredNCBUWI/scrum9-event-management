@@ -1,18 +1,23 @@
-import { IonButton, IonCard, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonCard, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import './Login.css';
 import { API_LOC, isloggedin } from '../../services/ApiServices'
 import { useState } from 'react';
 import { Redirect } from 'react-router';
-
+import { eye , eyeOff} from 'ionicons/icons'
 const Login: React.FC = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [auth, setAuth] = useState<boolean>(isloggedin());
-
+    const [passVisible, setPassVisible] = useState(false)
+    
+    function changeVisibility(){
+        setPassVisible(!passVisible)
+    }
     const loginSubmit = (e:any) => {
         const loginBody = {email: email, password: password}
         login();
+
 
         async function login(){
             // import service call to get all events here
@@ -55,20 +60,21 @@ const Login: React.FC = () => {
                 <IonGrid id="page">
                 <IonRow className="row">
                     <IonCol className="form-col" size="12" size-md="4">
-                        <IonCard>
-                            <IonCardTitle>LOGIN</IonCardTitle>
+                        <IonCard className="ion-padding">
+                            <IonCardTitle className="ion-padding">LOGIN</IonCardTitle>
                             <IonGrid>
                                 <IonRow>
-                                    <IonCol>
+                                    <IonCol size="12">
                                         <IonItem>
                                             <IonLabel position="floating">Email</IonLabel>
                                             <IonInput   type="email" placeholder="Email" onIonChange= {(e:any) => setEmail(e.target.value)}/>
                                         </IonItem>
                                     </IonCol>
-                                    <IonCol>
+                                    <IonCol size="12">
                                         <IonItem>
                                                 <IonLabel position="floating">Password</IonLabel>
-                                                <IonInput   type="password" placeholder="Password" onIonChange= {(e:any) => setPassword(e.target.value)}/>
+                                                <IonInput type={passVisible? "text" : "password"} onIonChange= {(e:any) => setPassword(e.target.value)}></IonInput>
+                                                <IonButton onClick={() => changeVisibility()} slot="end" fill="clear"><IonIcon icon={passVisible? eye : eyeOff } ></IonIcon></IonButton>
                                         </IonItem>
                                     </IonCol>
                                 </IonRow>
