@@ -11,19 +11,34 @@ import {
   IonTitle, 
   IonToolbar,
   IonIcon,
+  IonSplitPane,
+  IonButtons,
+  IonMenuButton,
 } from '@ionic/react';
 import {arrowBackOutline, arrowForwardOutline} from 'ionicons/icons'
+import { useState } from 'react';
+import Menu from '../components/Menu';
+import { isloggedin } from '../services/ApiServices';
 import './Home.css';
 
 const Home: React.FC = () => {
+
+  const [auth, setAuth] = useState<boolean>(isloggedin());
+  
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar className="toolbar">
-          <IonTitle>Blank</IonTitle>
-          sdf
-        </IonToolbar>
-      </IonHeader>
+    <IonContent>
+        <IonSplitPane contentId="page">
+        {/*--  the side menu  --*/}
+        <Menu auth={auth} />
+      <IonPage id="page" className="page">
+            <IonHeader>
+                <IonToolbar>
+                <IonTitle>Home</IonTitle>
+                <IonButtons slot="start">
+                  <IonMenuButton></IonMenuButton>
+                </IonButtons>
+                </IonToolbar>
+            </IonHeader>
       <IonContent fullscreen>
           <div className="top-segment">
             <div className="content">
@@ -63,6 +78,8 @@ const Home: React.FC = () => {
           </div>
       </IonContent>
     </IonPage>
+    </IonSplitPane>
+    </IonContent>  
   );
 };
 
