@@ -1,6 +1,6 @@
 import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import './Login.css';
-import { isloggedin } from '../../services/ApiServices'
+import { API_LOC, isloggedin } from '../../services/ApiServices'
 import { useState } from 'react';
 import { Redirect } from 'react-router';
 
@@ -16,7 +16,7 @@ const Login: React.FC = () => {
 
         async function login(){
             // import service call to get all events here
-            const response = await fetch(`http://127.0.0.1:8079/api/auth/login`,{
+            const response = await fetch(`${API_LOC}/api/auth/login`,{
                 headers: {
                     'Content-Type': 'application/json'
                     // 'Content-Type': 'application/x-www-form-urlencoded',

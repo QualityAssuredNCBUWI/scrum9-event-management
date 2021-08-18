@@ -5,6 +5,7 @@ import Event from '../../components/Event';
 import Menu from '../../components/Menu';
 import { isloggedin } from '../../services/ApiServices';
 import './ViewEvents.css';
+import { API_LOC } from '../../services/ApiServices';
 
 interface i_event {
     id: number;
@@ -41,7 +42,7 @@ const ViewEvents: React.FC = () => {
 
         async function getEventsbyDate(){
             // import service call to get all events here
-            const response = await fetch(`http://127.0.0.1:8079/api/events?start_date=${start_date}&end_date=${end_date}`);
+            const response = await fetch(`${API_LOC}api/events?start_date=${start_date}&end_date=${end_date}`);
             if(response.status === 200){
                 const data = await response.json();
                 console.log(data);
@@ -76,7 +77,7 @@ const ViewEvents: React.FC = () => {
 
         async function getEvents(){
             // import service call to get all events here
-            const response = await fetch("http://127.0.0.1:8079/api/events");
+            const response = await fetch(API_LOC + "/api/events");
             const data = await response.json();
             console.log(data);
             // store the data into our news state variable

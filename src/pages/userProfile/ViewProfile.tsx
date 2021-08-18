@@ -2,7 +2,7 @@ import { IonCol, IonContent, IonGrid, IonHeader, IonPage, IonRow, IonTitle, IonT
 import { calendarNumberSharp } from 'ionicons/icons';
 import { useState } from 'react';
 import { Redirect } from 'react-router';
-import { isloggedin } from '../../services/ApiServices';
+import { isloggedin, API_LOC } from '../../services/ApiServices';
 import Menu from '../../components/Menu';
 
 interface User {
@@ -46,7 +46,7 @@ const ViewProfile: React.FC = () => {
 
         async function getUserProfile(){
             // import service call to get all events here
-            const response = await fetch("http://127.0.0.1:8079/api/users/current", {
+            const response = await fetch(API_LOC +"api/users/current", {
                 headers: {
                     'Accept': 'application/json',
                     'Authorization': "Bearer " + localStorage.getItem('token')
