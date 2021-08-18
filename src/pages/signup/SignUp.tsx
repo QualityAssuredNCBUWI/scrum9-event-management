@@ -1,13 +1,11 @@
 import { 
     IonButton, 
     IonCard, 
-    IonCardContent, 
     IonCardTitle, 
     IonCol, 
     IonContent, 
     IonGrid, 
     IonHeader, 
-    IonIcon, 
     IonInput, 
     IonItem, 
     IonLabel, 

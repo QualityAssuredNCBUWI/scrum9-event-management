@@ -25,6 +25,6 @@ export function isloggedin(){
     } else {
         res = false;
     }
-    console.log(res);
+    // console.log(res);
     return res;
 }

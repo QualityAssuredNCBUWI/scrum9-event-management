@@ -23,7 +23,7 @@ import './Home.css';
 
 const Home: React.FC = () => {
 
-  const [auth, setAuth] = useState<boolean>(isloggedin());
+  const [auth] = useState<boolean>(isloggedin());
   
   return (
     <IonContent>
