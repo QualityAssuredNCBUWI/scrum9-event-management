@@ -1,4 +1,4 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonCard, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import './Login.css';
 import { API_LOC, isloggedin } from '../../services/ApiServices'
 import { useState } from 'react';
@@ -55,25 +55,33 @@ const Login: React.FC = () => {
                 <IonGrid id="page">
                 <IonRow className="row">
                     <IonCol className="form-col" size="12" size-md="4">
-                        <div className="form-container">
-                            <h2>LOGIN</h2>
-                            <IonInput 
-                                className="input" 
-                                type="email" 
-                                placeholder="Email" 
-                                onIonChange= {(e:any) => setEmail(e.target.value)}
-                            />
-                            <IonInput 
-                                className="input mt-2" 
-                                type="password" 
-                                placeholder="Password" 
-                                onIonChange= {(e:any) => setPassword(e.target.value)}
-                            />
-                            <div className="action-buttons">
-                                <IonButton fill="outline" routerLink="/home" color="danger">Cancel</IonButton>
-                                <IonButton fill="outline" onClick={loginSubmit} color="success">submit </IonButton>
-                            </div>
-                        </div>
+                        <IonCard>
+                            <IonCardTitle>LOGIN</IonCardTitle>
+                            <IonGrid>
+                                <IonRow>
+                                    <IonCol>
+                                        <IonItem>
+                                            <IonLabel position="floating">Email</IonLabel>
+                                            <IonInput   type="email" placeholder="Email" onIonChange= {(e:any) => setEmail(e.target.value)}/>
+                                        </IonItem>
+                                    </IonCol>
+                                    <IonCol>
+                                        <IonItem>
+                                                <IonLabel position="floating">Password</IonLabel>
+                                                <IonInput   type="password" placeholder="Password" onIonChange= {(e:any) => setPassword(e.target.value)}/>
+                                        </IonItem>
+                                    </IonCol>
+                                </IonRow>
+                                <IonRow>
+                                    <IonCol>
+                                        <IonButton fill="outline" routerLink="/home" color="danger">Cancel</IonButton>
+                                    </IonCol>
+                                    <IonCol>
+                                        <IonButton fill="outline" onClick={loginSubmit} color="success">submit </IonButton>
+                                    </IonCol>
+                                </IonRow>
+                            </IonGrid>
+                        </IonCard>
                     </IonCol>
                     <IonCol id="right-col" className="right-col" size="12" size-md="8">
                     </IonCol>                   
