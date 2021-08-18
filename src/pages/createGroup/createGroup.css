@@ -29,7 +29,7 @@ cover-lay {
 .form-col{
     position: relative;
     border: 2px solid rgb(0, 0, 0);
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(144, 177, 192);
     mix-blend-mode: lighten;
     min-height: 100%;
     border-radius: 10px;

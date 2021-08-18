@@ -1,4 +1,4 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonPage, IonRow, IonTextarea, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonLabel, IonPage, IonRow, IonTextarea, IonTitle, IonToolbar } from '@ionic/react';
 import './createGroup.css';
 import { createGroup } from '../../services/ApiServices'
 import { useState } from 'react';
@@ -26,12 +26,14 @@ const CreateGroup: React.FC = () => {
                     <IonCol className="form-col" size="12" size-md="4">
                         <div className="form-container">
                             <h2>CREATE YOUR GROUP</h2>
+                            <IonLabel position='floating'>Group Name</IonLabel>
                             <IonInput 
                                 className="input" 
                                 type="text" 
-                                placeholder="GroupName" 
+                                placeholder="Festive Band" 
                                 onIonChange= {(e:any) => setGroupName(e.target.value)}
                             />
+                            <IonLabel position='floating'>Description</IonLabel>
                             <IonTextarea
                                 className="input mt-2" 
                                 placeholder="A brief description of your group" 
