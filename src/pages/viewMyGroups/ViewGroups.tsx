@@ -47,12 +47,11 @@ const ViewGroups: React.FC = () => {
                 const data = await response.json();
                 console.log(data);
                 if(isMounted) setGroups(data);
-            } else if(response.status === 404 || response.status === 401){
+            } else if(response.status === 404){
                 const data = await response.json();
-                setResp(data.result);
-                localStorage.removeItem('token');
-                setAuth(false);
-            } else if(response.status === 406){
+                console.log(data);
+                if(isMounted) setGroups([]);
+            } else if(response.status === 401){
                 const data = await response.json();
                 setResp(data.result);
                 localStorage.removeItem('token');
