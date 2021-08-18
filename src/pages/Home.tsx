@@ -14,17 +14,46 @@ import {
   IonSplitPane,
   IonButtons,
   IonMenuButton,
+  useIonViewWillEnter,
 } from '@ionic/react';
 import {arrowBackOutline, arrowForwardOutline} from 'ionicons/icons'
 import { useState } from 'react';
 import Menu from '../components/Menu';
-import { isloggedin } from '../services/ApiServices';
+import { API_LOC, isloggedin } from '../services/ApiServices';
 import './Home.css';
 
 const Home: React.FC = () => {
 
-  const [auth] = useState<boolean>(isloggedin());
+  const [auth, setAuth] = useState<boolean>(isloggedin());
+  const [name, setName] = useState<string>();
   
+  useIonViewWillEnter(() => {
+    // call api
+        // console.log("ionWillEnterView event fired");
+        getName();
+
+        async function getName(){
+            // import service call to get all events here
+            const response = await fetch(API_LOC + "api/users/current", {
+              headers: {
+                  'Accept': 'application/json',
+                  'Authorization': "Bearer " + localStorage.getItem('token')
+              }
+          });
+          if(response.status === 200){
+            const data = await response.json();
+            console.log(data);
+            setName(data.user.first_name + ' ' + data.user.last_name);
+          } else if(response.status === 404 || response.status === 401){
+              localStorage.removeItem('token');
+              setAuth(false);
+          } else if(response.status === 406){
+              localStorage.removeItem('token');
+              setAuth(false);
+          }
+        }
+  }, []);
+
   return (
     <IonContent>
         <IonSplitPane contentId="page">
@@ -45,7 +74,9 @@ const Home: React.FC = () => {
               <h3>DU ROAD</h3>
               <h4>Event management system</h4>
               <h5>Mek Wi Du Road Nuh</h5>
-              <IonButton fill="outline" routerLink="/signup" color="light" size="large">Sign Up</IonButton>              
+              {auth ? 
+                <h4>Where To, {name}? </h4>
+              : <IonButton fill="outline" routerLink="/signup" color="light" size="large">Sign Up</IonButton>}            
             </div>
           </div>
           <div className="mid-segment">
