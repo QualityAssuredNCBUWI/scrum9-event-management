@@ -1,6 +1,6 @@
 import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import './Login.css';
-// import { login_user } from '../../services/ApiServices'
+import { isloggedin } from '../../services/ApiServices'
 import { useState } from 'react';
 import { Redirect } from 'react-router';
 
@@ -8,7 +8,7 @@ const Login: React.FC = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [auth, setAuth] = useState<boolean>();
+    const [auth, setAuth] = useState<boolean>(isloggedin());
 
     const loginSubmit = (e:any) => {
         const loginBody = {email: email, password: password}
@@ -33,7 +33,8 @@ const Login: React.FC = () => {
             } else if(response.status === 400 || response.status === 404 || response.status === 500){
                 const data = await response.json();
                 console.log(data);
-                // store the token into localstorage
+                // remove the token from localstorage
+                localStorage.removeItem('token');
                 setAuth(false)
             }
         }
@@ -47,14 +48,11 @@ const Login: React.FC = () => {
             </IonToolbar>
         </IonHeader>
         <IonContent  className="contain" fullscreen>
-            {auth ? <Redirect to={{
+            { auth ? <Redirect to={{
                     pathname: '/home',
                     state: { flash: 'Login Successful!' }
-                }} /> : <Redirect to={{
-                    pathname: '/login',
-                    state: { flash: 'Username or password is incorrect...' }
-                }} />}
-            <IonGrid id="page">
+                }} /> : 
+                <IonGrid id="page">
                 <IonRow className="row">
                     <IonCol className="form-col" size="12" size-md="4">
                         <div className="form-container">
@@ -81,6 +79,8 @@ const Login: React.FC = () => {
                     </IonCol>                   
                 </IonRow>
             </IonGrid>
+            }
+            
             <div className="cover-lay"></div>
         </IonContent>
     </IonPage>        
