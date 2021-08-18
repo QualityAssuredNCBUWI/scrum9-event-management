@@ -2,6 +2,8 @@ import { useIonViewWillEnter, IonCol, IonContent, IonGrid, IonHeader, IonPage, I
 import { calendarClearOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import Event from '../../components/Event';
+import Menu from '../../components/Menu';
+import { isloggedin } from '../../services/ApiServices';
 import './ViewEvents.css';
 
 interface i_event {
@@ -20,7 +22,8 @@ const ViewEvents: React.FC = () => {
     const [filteredEvents,setFilteredEvents] = useState(events);
     const [start_date, setStartDate] = useState<string>();
     const [end_date, setEndDate] = useState<string>();
-
+    const [auth, setAuth] = useState<boolean>(isloggedin());
+    
     const handleSearch = (event:any) =>{
         let value = event.target.value.toLowerCase();
         // console.log(value);
@@ -68,6 +71,7 @@ const ViewEvents: React.FC = () => {
     useIonViewWillEnter(() => {
         // call api
         // console.log("ionWillEnterView event fired");
+        setAuth(isloggedin());
         getEvents();
 
         async function getEvents(){
@@ -84,21 +88,7 @@ const ViewEvents: React.FC = () => {
     return (
     <IonContent>
         <IonSplitPane contentId="page">
-        {/*--  the side menu  --*/}
-        <IonMenu contentId="page">
-            <IonHeader>
-            <IonToolbar>
-                <IonTitle>Menu</IonTitle>
-            </IonToolbar>
-            </IonHeader>
-            <IonContent>
-            <IonList>
-                <IonItem routerLink="/home">Home</IonItem>
-                <IonItem routerLink="/login">Login</IonItem>
-                <IonItem routerLink="/events">Events</IonItem>
-            </IonList>
-            </IonContent>
-        </IonMenu>
+        <Menu auth={auth} />
         <IonPage id="page" className="page">
             <IonHeader>
                 <IonToolbar>

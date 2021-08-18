@@ -1,8 +1,9 @@
-import { useIonViewDidEnter, useIonViewWillLeave ,IonCol, IonContent, IonGrid, IonHeader, IonPage, IonRow, IonTitle, IonToolbar, IonItem, IonList, IonMenu, IonSplitPane, IonButtons, IonMenuButton, useIonViewWillEnter } from '@ionic/react';
-// import { calendarClearOutline } from 'ionicons/icons';
+import { IonCol, IonContent, IonGrid, IonHeader, IonPage, IonRow, IonTitle, IonToolbar, IonItem, IonList, IonMenu, IonSplitPane, IonButtons, IonMenuButton, useIonViewWillEnter, IonImg, IonCardHeader, IonCardSubtitle, IonCard, IonCardTitle, IonCardContent, IonButton, IonIcon, IonLabel } from '@ionic/react';
+import { calendarNumberSharp } from 'ionicons/icons';
 import { useState } from 'react';
 import { Redirect } from 'react-router';
 import { isloggedin } from '../../services/ApiServices';
+import Menu from '../../components/Menu';
 
 interface User {
     id: number;
@@ -25,6 +26,15 @@ const ViewProfile: React.FC = () => {
       }
     const [user, setUser] = useState(def);
     const [auth, setAuth] = useState<boolean>(isloggedin());
+
+    const handleDate = (value:any) => {
+        let vals = value.split(' ');
+        let result = '';
+        for( let i=0; i < 4; i++){
+            result += vals[i] + ' ';
+        }
+        return result;
+    }
 
     useIonViewWillEnter(() => {
         // call api
@@ -62,21 +72,7 @@ const ViewProfile: React.FC = () => {
     <IonContent>
         <IonSplitPane contentId="page">
         {/*--  the side menu  --*/}
-        <IonMenu contentId="page">
-            <IonHeader>
-            <IonToolbar>
-                <IonTitle>Menu</IonTitle>
-            </IonToolbar>
-            </IonHeader>
-            <IonContent>
-            <IonList>
-                <IonItem routerLink="/home">Home</IonItem>
-                <IonItem routerLink="/login">Login</IonItem>
-                <IonItem routerLink="/events">Events</IonItem>
-                <IonItem routerLink="/profile">Profile</IonItem>
-            </IonList>
-            </IonContent>
-        </IonMenu>
+        <Menu auth={auth} />
         <IonPage id="page" className="page">
             <IonHeader>
                 <IonToolbar>
@@ -86,18 +82,35 @@ const ViewProfile: React.FC = () => {
                 </IonButtons>
                 </IonToolbar>
             </IonHeader>
-            {/* { !auth ? <Redirect to={{
+            { !auth ? <Redirect to={{
                     pathname: '/login',
                     state: { flash: 'Session expired.' }
-                }} /> :  */}
+                }} /> : 
                 <IonContent  className="contain" fullscreen>
                     <IonGrid id="page">
                         { user ? 
                         <IonRow>
                             <IonCol>
-                                <IonItem>
-                                    {user.first_name}
-                                </IonItem>
+                                <IonCard>
+                                    <IonImg src='assets/matty-adame-nLUb9GThIcg-unsplash.jpg'/>
+                                    <IonCardHeader>
+                                        <IonCardSubtitle>
+                                            {user.email}
+                                        </IonCardSubtitle>
+                                        <IonCardTitle>
+                                            {user.first_name + ' ' + user.last_name}
+                                        </IonCardTitle>
+                                    </IonCardHeader>
+                                    <IonCardContent>
+                                    <IonItem>
+                                        <IonIcon icon={ calendarNumberSharp } slot='start' />
+                                        <IonLabel>Joined: {handleDate(user.created_at)}</IonLabel>
+                                    </IonItem>
+                                    <div className="ion-text-left">
+                                        <IonButton className="ion-margin-end" color="light">Update Profile</IonButton>
+                                    </div>
+                                    </IonCardContent>
+                                </IonCard>
                             </IonCol>
                         </IonRow>
                         : 
@@ -105,7 +118,7 @@ const ViewProfile: React.FC = () => {
                         }
                     </IonGrid>
                 <div className="cover-lay"></div>
-            </IonContent>
+            </IonContent>}
         </IonPage>  
     </IonSplitPane>
     </IonContent>      
