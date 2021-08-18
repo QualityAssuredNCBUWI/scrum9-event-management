@@ -11,6 +11,10 @@
     /* position: relative; */
 }
 
+ion-item input{
+    padding-top: 1em;
+}
+
 cover-lay {
     background-color: teal;
 
