@@ -5,7 +5,7 @@ import { useHistory, RouteComponentProps } from 'react-router';
 import { useParams } from 'react-router-dom';
 
 import testimage from '../../images/testevent.jpg';
-import { API_LOC } from '../../services/ApiServices';
+import { API_LOC, checkUserAttendEvent, getEvent, getEventAttendee, getEventGroup, getLoginUserId, setUserAtendEvent, setUserLeaveEvent, updateEventStatus } from '../../services/ApiServices';
 import './ViewEvent.css';
 
 interface event {
@@ -28,6 +28,11 @@ interface attendee{
     last_name: string;
 }
 
+interface group{
+    id: string;
+    admin: string;
+    name: string;
+}
 
 type EventParams = {
     event_id: string
@@ -39,135 +44,55 @@ const ViewEvent: React.FC<RouteComponentProps> = (props) => {
     const [cur_event_id, setEventId] = useState<number>();
     const [current_event, setEvent] = useState<event>();
     const [event_attendee, setAttendee] = useState<attendee[]>();
-    const [isAttendingEvent, changeAtendEvent] = useState<Boolean>();
+    const [isAttendingEvent, changeAttendEvent] = useState<Boolean>();
     const [isEventAdmin, setEventAdmin] = useState<Boolean>();
-    const [eventGroup, setEventGroup] = useState<Number>();
-
+    const [eventGroup, setEventGroup] = useState<group>();
 
     const history = useHistory();
 
     let {event_id} = useParams<EventParams>();
 
-    async function getEvent(event_id:number) {
-        let token:string = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImVtYWlsIjoiam9obnBhdWxAZHVyb2FkLmNvbSIsImlhdCI6MTYyOTM4NjkyMiwiZXhwIjoxNjI5MzkwNTIyfQ.-OiYomQuZMEN9sTfegminWfCtEtLwWuPUJX18q04MYw';
-
-        const getRequestOptions= {
-            method: 'GET',
-            headers: new Headers({
-                'Authorization': 'Bearer '+token
-            })
-        };
-        const postRequestOptions= {
-            method: 'POST',
-            headers: new Headers({
-                'Authorization': 'Bearer '+token
-            })
-        };
-
-        const eventResponse = await fetch(`${API_LOC}api/events/${event_id}`);
-        if(eventResponse.status === 200){
-            const data = await eventResponse.json();
-            data.start_date = new Date(data.start_date)
-            data.end_date = new Date(data.end_date)
-
-            const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-            data.duration = Math.round(Math.abs((data.start_date - data.end_date) / oneDay));
-
-            console.log(data);
-            setEvent(data)
-
-            // get the number of users for the event
-            const usersResponse = await fetch(`${API_LOC}api/events/${event_id}/users`);
-            if(eventResponse.status === 200){
-                const data = await usersResponse.json();
-                console.log(data);
-                setAttendee(data);
-
-                // check if the current user is attending
-                const attendanceResponse = await fetch(`${API_LOC}api/events/${event_id}/attend`, getRequestOptions);
-                if(attendanceResponse.status === 200){
-                    const data = await attendanceResponse.json();
-                    console.log(data);
-                    changeAtendEvent(true);
-                                        
-                }else if(attendanceResponse.status === 200){
-                    const data = await attendanceResponse.json();
-                    console.log(data);
-                    changeAtendEvent(false);
-                }
-
-                
-            }
-
+    async function changeEventAttendance(){
+        if(isAttendingEvent == true){
+            await setUserLeaveEvent(cur_event_id!);
         }else{
-            const data = await eventResponse.json();
-            console.log(data)
+            await setUserAtendEvent(cur_event_id!);
         }
-        
+        window.location.reload();
     }
 
-    async function attendEvent(event_id:number) {
-        let token:string = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImVtYWlsIjoiam9obnBhdWxAZHVyb2FkLmNvbSIsImlhdCI6MTYyOTM4NjkyMiwiZXhwIjoxNjI5MzkwNTIyfQ.-OiYomQuZMEN9sTfegminWfCtEtLwWuPUJX18q04MYw';
-
-        const getRequestOptions= {
-            method: 'GET',
-            headers: new Headers({
-                'Authorization': 'Bearer '+token
-            })
-        };
-        const postRequestOptions= {
-            method: 'POST',
-            headers: new Headers({
-                'Authorization': 'Bearer '+token
-            })
-        };
-
-        const response = await fetch(`${API_LOC}api/events/${event_id}/attend`, postRequestOptions);
-            if(response.status === 201){
-                console.log("member added successfully");
-                window.location.reload();
-
-            }else{
-                const data = await response.json();
-                console.log(data);   
-            }
+    async function changeEventStatus(){
+        if(current_event?.status =="pending"){
+            await updateEventStatus(cur_event_id!, "published");
+        }else{
+            await updateEventStatus(cur_event_id!, "pending");
+        }
+        window.location.reload();
     }
 
-    async function leaveEvent(event_id:number) {
-        let token:string = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImVtYWlsIjoiam9obnBhdWxAZHVyb2FkLmNvbSIsImlhdCI6MTYyOTM4MTQwMCwiZXhwIjoxNjI5Mzg1MDAwfQ.GIW9IBb_j3H2UrqLLagyEQ0RcyGxxsE7lxtkSNehOT0';
+    async function initalSetup(event_id: number){
+        setEvent(await getEvent(event_id));
+        setAttendee(await getEventAttendee(event_id))
+        changeAttendEvent(await checkUserAttendEvent(event_id));
+        let group = await getEventGroup(event_id)
+        setEventGroup( group)
 
-        const getRequestOptions= {
-            method: 'GET',
-            headers: new Headers({
-                'Authorization': 'Bearer '+token
-            })
-        };
-        const postRequestOptions= {
-            method: 'POST',
-            headers: new Headers({
-                'Authorization': 'Bearer '+token
-            })
-        };
+        let current_user = await getLoginUserId() 
 
-        const response = await fetch(`${API_LOC}api/events/${event_id}/user`, postRequestOptions);
-            if(response.status === 201){
-                console.log("member added successfully");
-                window.location.reload();
-
-            }else{
-                const data = await response.json();
-                console.log(data);   
-            }
+        if(current_user == group.admin){
+            setEventAdmin(true);
+        }else{
+            setEventAdmin(false);
+        }
     }
 
     useIonViewDidEnter(() => {
         setEventId(-1);
         if(!isNaN(Number(event_id))){
-            console.log("its a number");
             setEventId(Number(event_id));
-            getEvent(Number(event_id));
+            initalSetup(Number(event_id));
         }
-  },[]);
+    },[]);
 
   return (
     <IonPage>
@@ -206,23 +131,17 @@ const ViewEvent: React.FC<RouteComponentProps> = (props) => {
                     <p className="e-start">{monthNames[current_event?.start_date.getMonth()!]} {current_event?.start_date.getDate()}, {current_event?.start_date.getFullYear()}</p>
                     <p className="e-duration">{current_event?.duration} days</p>
                   </div>
-                  <div>
                     <IonButton color="primary" 
-                        onClick={()=>{ attendEvent(cur_event_id!)}}
+                        onClick={()=>{ changeEventAttendance()}}
                     > {isAttendingEvent == true? "Leave Event": "Attend Event"}</IonButton>
-                      {isEventAdmin == true &&
-                        <IonButton color="primary"
-                            onClick={()=>{ attendEvent(cur_event_id!)}}
-                        >Publish Event</IonButton>
-                      }
-                      {isEventAdmin == true &&
-                        <a href="" className="e-join-group">
-                            <p>Join group to attend event</p>
-                        </a>
-                      }
-                    
-                    
-                  </div>
+                    {isEventAdmin == true &&
+                    <IonButton color="primary"
+                        onClick={()=>{ changeEventStatus()}}
+                    >{current_event?.status == "pending"? "Publish Event" : "Unpublish Event"}</IonButton>
+                    }
+                    <a onClick={() => history.push('/group/'+eventGroup?.id)} className="e-join-group">
+                        <p>View event group</p>
+                    </a>
               </div>
           </div> 
       </IonContent>

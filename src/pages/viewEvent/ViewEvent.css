@@ -97,8 +97,12 @@
     display: flex;
     flex-flow: row;
     flex-wrap: wrap;
-    justify-content: space-between;
     margin: 0 0.5rem;
+    justify-content: center;
+}
+
+#event-bottom .e-direct p{
+    margin: 0 0.2rem;
 }
 
 #event-bottom  .e-direct .e-duration, #event-bottom .e-join-group{
@@ -121,6 +125,9 @@
     }
 
     .e-venue{
+        width: 100%;
+    }
+    .e-direct{
         width: 100%;
     }
 
