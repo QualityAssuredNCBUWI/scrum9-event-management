@@ -26,3 +26,9 @@ yarn-error.log*
 
 # Optional eslint cache
 .eslintcache
+
+.json
+/build
+.idea
+/android
+capacitor.config.ts
