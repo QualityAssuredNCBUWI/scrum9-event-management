@@ -70,29 +70,29 @@ const Home: React.FC = () => {
 
   return (
     <IonContent>
-        <IonSplitPane contentId="page">
+      <IonSplitPane contentId="page">
         {/*--  the side menu  --*/}
         <Menu auth={auth} />
-      <IonPage id="page" className="page">
-            <IonHeader>
-                <IonToolbar>
+        <IonPage id="page" className="page">
+          <IonHeader>
+              <IonToolbar>
                 <IonTitle>Home</IonTitle>
                 <IonButtons slot="start">
                   <IonMenuButton></IonMenuButton>
                 </IonButtons>
-                </IonToolbar>
-            </IonHeader>
-      <IonContent fullscreen>
-          <div className="top-segment">
-            <div className="content">
-              <h3>DU ROAD</h3>
-              <h4>Event management system</h4>
-              <h5>Mek Wi Du Road Nuh</h5>
-              {auth ? 
-                <h4>Where To, {name}? </h4>
-              : <IonButton fill="outline" routerLink="/signup" color="light" size="large">Sign Up</IonButton>}            
+              </IonToolbar>
+          </IonHeader>
+          <IonContent fullscreen>
+            <div className="top-segment">
+              <div className="content">
+                <h3>DU ROAD</h3>
+                <h4>Event management system</h4>
+                <h5>Mek Wi Du Road Nuh</h5>
+                {auth ? 
+                  <h4>Where To, {name}? </h4>
+                : <IonButton fill="outline" routerLink="/signup" color="light" size="large">Sign Up</IonButton>}            
+              </div>
             </div>
-          </div>
           <div className="mid-segment">
             <IonGrid>
               <IonRow>
@@ -119,11 +119,10 @@ const Home: React.FC = () => {
             </IonGrid>
           </div>
           <div className="bottom-segment">
-
           </div>
-      </IonContent>
-    </IonPage>
-    </IonSplitPane>
+          </IonContent>
+        </IonPage>
+      </IonSplitPane>
     </IonContent>  
   );
 };

@@ -18,17 +18,18 @@ const Menu: React.FC<ContainerProps> = ({auth}) => {
         <IonContent>
         { !auth ? 
             <IonList>
-            <IonItem routerLink="/home">Home</IonItem>
-            <IonItem routerLink="/login">Login</IonItem>
-            <IonItem routerLink="/events">Events</IonItem>
+              <IonItem routerLink="/home">Home</IonItem>
+              <IonItem routerLink="/login">Login</IonItem>
+              <IonItem routerLink="/events">Events</IonItem>
             </IonList>
          : 
             <IonList>
-            <IonItem routerLink="/home">Home</IonItem>
-            <IonItem onClick={() => logout() }routerLink="/login">Logout</IonItem>
-            <IonItem routerLink="/events">Events</IonItem>
-            <IonItem routerLink="/profile">Profile</IonItem>
-            <IonItem routerLink="/groups">My Groups</IonItem>
+              <IonItem routerLink="/home">Home</IonItem>
+              {/* <IonItem routerLink="/login">Logout</IonItem> */}
+              <IonItem routerLink="/events">Events</IonItem>
+              <IonItem routerLink="/profile">Profile</IonItem>
+              <IonItem routerLink="/groups">My Groups</IonItem>
+              <IonItem routerLink="/createGroup">Create Groups</IonItem>
             </IonList>
          }
         </IonContent>
