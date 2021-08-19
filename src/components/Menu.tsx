@@ -4,6 +4,10 @@ import { IonItem, IonContent, IonHeader, IonList, IonMenu, IonTitle, IonToolbar}
 interface ContainerProps {auth:boolean}
 
 const Menu: React.FC<ContainerProps> = ({auth}) => {
+  const logout = async() =>{
+    await localStorage.clear()
+    console.log('hit')
+  }
   return (
     <IonMenu contentId="page">
         <IonHeader>
@@ -21,7 +25,7 @@ const Menu: React.FC<ContainerProps> = ({auth}) => {
          : 
             <IonList>
             <IonItem routerLink="/home">Home</IonItem>
-            {/* <IonItem routerLink="/login">Logout</IonItem> */}
+            <IonItem onClick={() => logout() }routerLink="/login">Logout</IonItem>
             <IonItem routerLink="/events">Events</IonItem>
             <IonItem routerLink="/profile">Profile</IonItem>
             <IonItem routerLink="/groups">My Groups</IonItem>

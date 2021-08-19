@@ -17,7 +17,7 @@ import {
   useIonViewWillEnter,
 } from '@ionic/react';
 import {arrowBackOutline, arrowForwardOutline} from 'ionicons/icons'
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Menu from '../components/Menu';
 import { API_LOC, isloggedin } from '../services/ApiServices';
 import './Home.css';
@@ -25,9 +25,9 @@ import './Home.css';
 
 const Home: React.FC = () => {
 
-  const [auth] = useState<boolean>(isloggedin());
+  const [auth, setAuth] = useState<boolean>(isloggedin());
   const [name, setName] = useState<string>();
-  
+
   const onNextSlide = () => {
     const htmlslides = document.querySelector('ion-slides');
     if (htmlslides) htmlslides.slideNext();
@@ -39,8 +39,7 @@ const Home: React.FC = () => {
   };
   
 
-
-
+ 
   
   useIonViewWillEnter(() => {
     // call api
