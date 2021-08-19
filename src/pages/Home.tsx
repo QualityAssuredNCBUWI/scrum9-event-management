@@ -15,18 +15,40 @@ import {
   IonButtons,
   IonMenuButton,
   useIonViewWillEnter,
+  useIonToast
 } from '@ionic/react';
 import {arrowBackOutline, arrowForwardOutline} from 'ionicons/icons'
 import { useState } from 'react';
+import { RouteComponentProps, useLocation } from 'react-router';
 import Menu from '../components/Menu';
 import { API_LOC, isloggedin } from '../services/ApiServices';
 import './Home.css';
 
-const Home: React.FC = () => {
+interface Log extends RouteComponentProps{
+  state: object;
+}
 
+interface CustomState {
+  flash:string;
+}
+
+const Home: React.FC<Log> = ({location}) => {
+
+  // let loc = useLocation();
+  let state = location.state as CustomState;
   const [auth, setAuth] = useState<boolean>(isloggedin());
   const [name, setName] = useState<string>();
+  const [present, dismiss] = useIonToast();
   
+  function processState(){
+    present({
+      buttons: [{ text: 'hide', handler: () => dismiss() }],
+      message: state.flash,
+      duration: 3000,
+      color: 'success'
+    })
+  }
+
   useIonViewWillEnter(() => {
     // call api
         // console.log("ionWillEnterView event fired");
@@ -81,6 +103,10 @@ const Home: React.FC = () => {
             </div>
             <div className="mid-segment">
               <IonGrid>
+                { state ? 
+                processState()
+                : null 
+                 }
                 <IonRow>
                   <IonCol size="4" className="ion-hide-lg-down">
                     <IonButton fill="outline" color="dark" size="large"><IonIcon icon={arrowBackOutline}></IonIcon></IonButton>
