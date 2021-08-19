@@ -6,8 +6,8 @@ interface ContainerProps {event_id:number,event_name:string, event_description:s
 
 const Event: React.FC<ContainerProps> = ({event_id, event_name, event_description, event_date, event_attendance, event_img_url}) => {
   return (
-			<IonCard id={'event-'+event_id}>
-                <IonImg src={event_img_url}/>
+			<IonCard className="event-Card" id={'event-'+event_id}>
+                <img src={event_img_url}/>
                 <IonCardHeader>
 						<IonCardTitle className="success">{event_name}</IonCardTitle>
                         <IonCardSubtitle>{event_description}</IonCardSubtitle>
@@ -22,7 +22,7 @@ const Event: React.FC<ContainerProps> = ({event_id, event_name, event_descriptio
                         <IonLabel>Attendees: {event_attendance}</IonLabel>
                     </IonItem>
 					<div className="ion-text-left">
-						<IonButton className="ion-margin-end" color="light">View Event</IonButton>
+						<IonButton className="ion-margin-end"  fill="outline" color="dark">View Event</IonButton>
 					</div>
 				</IonCardContent>
 			</IonCard>

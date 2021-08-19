@@ -49,6 +49,12 @@ const Home: React.FC = () => {
     const htmlslides = document.querySelector('ion-slides');
     if (htmlslides) htmlslides.slidePrev();
   };
+
+  const slideOpts = {
+    initialSlide: 0,
+    speed: 0,
+    autoplay: false
+  };
   
 
  
@@ -129,19 +135,12 @@ const Home: React.FC = () => {
                   <IonButton fill="outline" color="dark" size="large"  onClick={() => {onNextSlide(); console.log('next')} }><IonIcon icon={arrowForwardOutline}></IonIcon></IonButton>
                 </IonCol>
                 <IonCol size="12">
-                  <IonSlides pager={true} className="ion-padding">
+                  <IonSlides pager={true} className="ion-padding" options={slideOpts}>
                     { upComing.length? upComing.map((event: i_event) => (
-                      <IonSlide>
+                      <IonSlide className="home-ion-slide">
                         <Event event_id={event.id} event_name={event.title} event_description={event.description} event_date={event.start_date} event_attendance={event.attendance} event_img_url='assets/matty-adame-nLUb9GThIcg-unsplash.jpg'/>
                       </IonSlide>
                     )) : <IonSlide>No Content</IonSlide>}
-
-                    {/* <IonSlide className="ion-padding" >
-                      hi
-                    </IonSlide>
-                    <IonSlide className="ion-padding">
-                      bye
-                    </IonSlide> */}
                   </IonSlides>
                 </IonCol>
               </IonRow>

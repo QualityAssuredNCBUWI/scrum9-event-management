@@ -1,0 +1,25 @@
+img{
+    border: 2px solid red;
+}
+
+.event-Card {
+    width: 70%;
+    border-radius: 20px 0px;
+    background-color: #ffe058b8;
+    box-shadow: 5px 3px 45px -7px rgba(0,0,0,0.93);
+} 
+
+ion-card-header, ion-card-content{
+    background-color: #ffe058b8;
+}
+
+.button-md, button-ios  {
+  background-color: #008036;
+  --background-hover: #008036;
+}
+
+@media screen and (max-width: 480px)  {
+    ion-card {
+        width: 100%;
+    } 
+}
