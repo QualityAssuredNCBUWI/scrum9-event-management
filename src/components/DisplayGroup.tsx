@@ -16,7 +16,7 @@ const Group: React.FC<ContainerProps> = ({group_id, group_name, group_admin}) =>
                         <IonLabel>Admin: {group_admin}</IonLabel>
                     </IonItem>
 					<div className="ion-text-left">
-						<IonButton className="ion-margin-end" color="light">View Group Events</IonButton>
+						<IonButton className="ion-margin-end" color="light" routerLink={'group/' + group_id}>View Group Events</IonButton>
 					</div>
 				</IonCardContent>
 			</IonCard>
