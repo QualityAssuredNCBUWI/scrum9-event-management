@@ -51,7 +51,6 @@ const App: React.FC = () => (
           <ViewGroups />
         </Route>
         <Route exact path="/group/:group_id" component={ViewGroup}>
-          {/* <ViewGroup /> */}
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />
