@@ -3,10 +3,13 @@ import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 import Login from './pages/login/Login';
+import Logout from './pages/login/Logout';
 import SignUp from './pages/signup/SignUp'
 import ViewEvents from './pages/viewEvents/ViewEvents';
-import ViewProfile from './pages/userProfile/ViewProfile'
-import ViewEvent from './pages/viewEvent/ViewEvent';
+import CreateGroup from './pages/createGroup/createGroup';
+import ViewProfile from './pages/userProfile/ViewProfile';
+import ViewGroups from './pages/viewMyGroups/ViewGroups';
+import ViewGroup from './pages/viewGroup/ViewGroup';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -26,13 +29,15 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import ViewEvent from './pages/viewEvent/ViewEvent';
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
+        <Route exact path="/home" component={Home}>
+        </Route>
+        <Route exact path="/logout" component={Logout}>
         </Route>
         <Route exact path="/login">
           <Login />
@@ -48,10 +53,17 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/event/:event_id" component={ViewEvent}>
         </Route>    
+        <Route exact path="/groups">
+          <ViewGroups />
+        </Route>
+        <Route exact path="/group/:group_id" component={ViewGroup}>
+        </Route>
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
-
+        <Route exact path="/createGroup">
+          <CreateGroup />
+          </Route>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

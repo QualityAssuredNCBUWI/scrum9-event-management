@@ -77,7 +77,7 @@ const ViewEvents: React.FC = () => {
 
         async function getEvents(){
             // import service call to get all events here
-            const response = await fetch(API_LOC + "/api/events");
+            const response = await fetch(API_LOC + "api/events");
             const data = await response.json();
             console.log(data);
             // store the data into our news state variable
