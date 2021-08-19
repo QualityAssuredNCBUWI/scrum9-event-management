@@ -132,6 +132,15 @@ const ViewEvents: React.FC = () => {
                         )) : <IonItem>No events found</IonItem>}
                     </IonRow>
                 </IonGrid>
+                    {/* <IonRow>
+                    { filteredEvents.length ? filteredEvents.map((event: i_event) => (
+                    <IonCol>
+                        <Event event_id={event.id} event_name={event.title} event_description={event.description} event_date={event.start_date} event_attendance={event.attendance} event_img_url={event.image}/>
+                    </IonCol>
+                    )) : <IonItem>No events found</IonItem>}
+                    </IonRow>
+                    </IonGrid> */}
+                <div className="cover-lay"></div>
             </IonContent>
         </IonPage>  
     </IonSplitPane>

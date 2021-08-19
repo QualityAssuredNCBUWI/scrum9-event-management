@@ -1,13 +1,15 @@
 import {IonCard, IonCardContent, IonCardTitle, IonCardHeader, IonCardSubtitle, IonButton, IonImg, IonIcon, IonItem, IonLabel} from '@ionic/react';
 import { pin, accessibilityOutline} from 'ionicons/icons';
+import { API_LOC } from '../services/ApiServices';
 import './Event.css';
 
 interface ContainerProps {event_id:number,event_name:string, event_description:string, event_date:string, event_attendance: number, event_img_url:string}
 
 const Event: React.FC<ContainerProps> = ({event_id, event_name, event_description, event_date, event_attendance, event_img_url}) => {
+
   return (
-			<IonCard className="event-Card" id={'event-'+event_id}>
-                <img src={event_img_url}/>
+			<IonCard id={'event-'+event_id}>
+                <IonImg src={API_LOC+event_img_url}/>
                 <IonCardHeader>
 						<IonCardTitle className="success">{event_name}</IonCardTitle>
                         <IonCardSubtitle>{event_description}</IonCardSubtitle>

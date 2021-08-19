@@ -3,6 +3,7 @@ import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 import Login from './pages/login/Login';
+import Logout from './pages/login/Logout';
 import SignUp from './pages/signup/SignUp'
 import ViewEvents from './pages/viewEvents/ViewEvents';
 import CreateGroup from './pages/createGroup/createGroup';
@@ -33,8 +34,9 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
+        <Route exact path="/home" component={Home}>
+        </Route>
+        <Route exact path="/logout" component={Logout}>
         </Route>
         <Route exact path="/login">
           <Login />
@@ -52,7 +54,6 @@ const App: React.FC = () => (
           <ViewGroups />
         </Route>
         <Route exact path="/group/:group_id" component={ViewGroup}>
-          {/* <ViewGroup /> */}
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />

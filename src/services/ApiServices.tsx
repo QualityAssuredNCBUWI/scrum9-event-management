@@ -5,7 +5,7 @@ interface LoginCred {
 
 // Production
 export const API_LOC = 'https://du-road-api.herokuapp.com/'
-
+export const API_LOC_SEC = 'https://du-road-api.herokuapp.com'
 // Development (Place your server here!)
 // export const API_LOC = 'http://127.0.0.1:8079/'
 
