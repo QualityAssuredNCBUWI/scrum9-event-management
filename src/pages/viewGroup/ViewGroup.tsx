@@ -219,7 +219,7 @@ const ViewGroup: React.FC<RouteComponentProps> = (props) => {
                         </IonCol>
                     </IonRow>
                     <IonRow>
-                    <h2>Group Events</h2>
+                    <IonTitle>Group Events</IonTitle>
                     <IonSearchbar placeholder="Search Events by Title" onIonChange={(e) =>handleSearch(e)}></IonSearchbar>
                     { filteredEvents.length ? filteredEvents.map((event: i_event) => (
                     <IonCol>
