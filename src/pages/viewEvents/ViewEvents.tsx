@@ -7,6 +7,9 @@ import { isloggedin } from '../../services/ApiServices';
 import './ViewEvents.css';
 import { API_LOC } from '../../services/ApiServices';
 
+import { useHistory } from 'react-router';
+
+
 interface i_event {
     id: number;
     title: string;
@@ -18,6 +21,7 @@ interface i_event {
 
 
 const ViewEvents: React.FC = () => {
+    const history = useHistory();
 
     const [events, setEvents] = useState([]);
     const [filteredEvents,setFilteredEvents] = useState(events);
@@ -25,7 +29,7 @@ const ViewEvents: React.FC = () => {
     const [end_date, setEndDate] = useState<string>();
     const [auth, setAuth] = useState<boolean>(isloggedin());
     
-    const handleSearch = (event:any) =>{
+    const handleSearch = (event:any) => {
         let value = event.target.value.toLowerCase();
         // console.log(value);
         let result = [];
