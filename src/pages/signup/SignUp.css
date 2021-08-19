@@ -1,4 +1,4 @@
-#page {
+#SignUp-page {
     background: 
     linear-gradient(
         #008035de,
@@ -6,9 +6,20 @@
     ),
     url('./party.jpg');
     background-size: cover; 
-    background-repeat: no-repeat;
-    margin: 0;
+    /* background-repeat: no-repeat; */
+    /* margin: 0; */
     /* position: relative; */
+}
+
+@media screen and (max-width: 480px) {
+    #SignUp-page {
+        background: 
+        linear-gradient(
+            #008035de,
+            #ffe058bd
+        );
+        background-size: transparent
+    }
 }
 
 ion-item input{

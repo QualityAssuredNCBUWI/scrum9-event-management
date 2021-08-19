@@ -1,94 +1,93 @@
-
 .top-segment {
-    background-color: #008036;
-    /* height: 50vh; */
-    justify-content: center;
-    align-content: center;
-    margin-bottom: 5px;
+  background-color: #008036;
+  /* height: 50vh; */
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 5px;
 }
 
 .mid-segment {
-    height: 50vh;
-    padding-top: 4px;
+  height: 50vh;
+  padding-top: 4px;
 }
 
-
 /* Layout */
-.top-segment .content{
-    margin-left: 5vw;
-    margin-right: 5vw;
-    text-align: center;
-    height: 100%;
+.top-segment .content {
+  margin-left: 5vw;
+  margin-right: 5vw;
+  text-align: center;
+  height: 100%;
 }
 
 .top-segment h3 {
-    font-size: 60px;
-    font-weight: 700;
-    color: azure;
-    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
-
+  font-size: 60px;
+  font-weight: 700;
+  color: azure;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 
-.top-segment ion-button{
-    color: black
+.top-segment ion-button {
+  color: black;
 }
 
+ion-slide {
+  
+  box-sizing: border-box;
 
-.mid-segment ion-col{
- text-align: center;
- font-weight: 700;
+  width: 4px;
 }
 
-.mid-segment h2{
-    text-align: center;
-    font-weight: 700;
-   }
+.mid-segment ion-col {
+  text-align: center;
+  font-weight: 700;
+}
+
+.mid-segment h2 {
+  text-align: center;
+  font-weight: 700;
+}
 
 .toolbar {
-    display: inline;
-    
+  display: inline;
 }
 
 /* Color */
 
 .slides-md,
 .slides-ios {
-    --bullet-background: rgb(0, 0, 0);
-    --bullet-background-active: #ffdf58;
+  --bullet-background: rgb(0, 0, 0);
+  --bullet-background-active: #008036;
 }
 
-.button-md, ion-button:hover{
-    background-color: #ffdf58;
-    color: black;
-    
-    
+.button-md,
+ion-button:hover {
+  background-color: #ffdf58;
+  color: black;
 }
 
-@media screen and (max-width:480px) {
-/* CSS  for mobile  */
+@media screen and (max-width: 480px) {
+  /* CSS  for mobile  */
 
-    .top-segment h4 {
-        font-size: 30px;
-        font-weight: 700;
-        margin-left: 0.5rem;
-        color: rgb(0, 0, 0);
-    }
+  .top-segment h4 {
+    font-size: 30px;
+    font-weight: 700;
+    margin-left: 0.5rem;
+    color: rgb(0, 0, 0);
+  }
 
-    .top-segment ion-button{
-    
-        color: azure;
-        border-color: azure;
-    }
+  .top-segment ion-button {
+    color: azure;
+    border-color: azure;
+  }
 
-    .top-segment h5 {
-        margin-left: 0.5rem;
-    }
+  .top-segment h5 {
+    margin-left: 0.5rem;
+  }
 
-
-    .top-segment {
-        background-color: #008036;
-        height: 40vh;
-        justify-content: center;
-        align-content: center;
-    }
+  .top-segment {
+    background-color: #008036;
+    height: 40vh;
+    justify-content: center;
+    align-content: center;
+  }
 }

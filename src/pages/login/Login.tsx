@@ -62,7 +62,7 @@ const Login: React.FC = () => {
                 }} /> : 
                 <IonGrid id="login-page">
                 <IonRow className="login-row">
-                    <IonCol className="form-col" size="12" size-md="4">
+                    <IonCol className="form-col" size="12" size-md="6">
                         <IonCard className="ion-padding">
                             <IonCardTitle className="ion-padding">LOGIN</IonCardTitle>
                             <IonGrid>
@@ -92,7 +92,7 @@ const Login: React.FC = () => {
                             </IonGrid>
                         </IonCard>
                     </IonCol>
-                    <IonCol id="right-col" className="right-col" size="12" size-md="8">
+                    <IonCol id="right-col" className="right-col" size="12" size-md="7">
                     </IonCol>                   
                 </IonRow>
             </IonGrid>
