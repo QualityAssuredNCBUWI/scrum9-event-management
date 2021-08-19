@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Login from './pages/login/Login';
 import SignUp from './pages/signup/SignUp'
 import ViewEvents from './pages/viewEvents/ViewEvents';
+import CreateGroup from './pages/createGroup/createGroup';
 import ViewProfile from './pages/userProfile/ViewProfile';
 import ViewGroups from './pages/viewMyGroups/ViewGroups';
 import ViewGroup from './pages/viewGroup/ViewGroup';
@@ -56,7 +57,9 @@ const App: React.FC = () => (
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
-
+        <Route exact path="/createGroup">
+          <CreateGroup />
+          </Route>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

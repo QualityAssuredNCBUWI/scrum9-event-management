@@ -18,6 +18,16 @@ export function sign_up(body:object){
     console.log(body)
 }
 
+interface CreateGroup {
+    groupName: string;
+    groupDescription: string; 
+}
+
+export function createGroup(body:CreateGroup){
+    console.log(body)
+}
+
+
 export function isloggedin(){
     let res =  false;
     if(localStorage.getItem('token')){
