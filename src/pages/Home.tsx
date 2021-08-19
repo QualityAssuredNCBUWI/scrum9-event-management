@@ -15,19 +15,31 @@ import {
   IonButtons,
   IonMenuButton,
   useIonViewWillEnter,
+  IonItem,
 } from '@ionic/react';
 import {arrowBackOutline, arrowForwardOutline} from 'ionicons/icons'
 import { useRef, useState } from 'react';
 import Menu from '../components/Menu';
+import Event from '../components/Event';
 import { API_LOC, isloggedin } from '../services/ApiServices';
 import './Home.css';
 
+interface i_event {
+  id: number;
+  title: string;
+  description: string;
+  start_date: string;
+  attendance: number;
+  image: string;
+}
 
 const Home: React.FC = () => {
 
   const [auth, setAuth] = useState<boolean>(isloggedin());
   const [name, setName] = useState<string>();
+  const [upComing, setUpComing] = useState([]);
 
+  const test = ['hi','by']
   const onNextSlide = () => {
     const htmlslides = document.querySelector('ion-slides');
     if (htmlslides) htmlslides.slideNext();
@@ -65,6 +77,17 @@ const Home: React.FC = () => {
               localStorage.removeItem('token');
               setAuth(false);
           }
+        }
+
+        getEvents();
+
+        async function getEvents(){
+            // import service call to get all events here
+            const response = await fetch(API_LOC + "api/events");
+            const data = await response.json();
+            console.log(data);
+            // store the data into our news state variable
+            setUpComing(data.result);
         }
   }, []);
 
@@ -107,12 +130,18 @@ const Home: React.FC = () => {
                 </IonCol>
                 <IonCol size="12">
                   <IonSlides pager={true} className="ion-padding">
-                    <IonSlide className="ion-padding" >
+                    { upComing.length? upComing.map((event: i_event) => (
+                      <IonSlide>
+                        <Event event_id={event.id} event_name={event.title} event_description={event.description} event_date={event.start_date} event_attendance={event.attendance} event_img_url='assets/matty-adame-nLUb9GThIcg-unsplash.jpg'/>
+                      </IonSlide>
+                    )) : <IonSlide>No Content</IonSlide>}
+
+                    {/* <IonSlide className="ion-padding" >
                       hi
                     </IonSlide>
                     <IonSlide className="ion-padding">
                       bye
-                    </IonSlide>
+                    </IonSlide> */}
                   </IonSlides>
                 </IonCol>
               </IonRow>
