@@ -79,7 +79,7 @@ const SignUp: React.FC = () => {
                     pathname: '/login',
                     state: { flash: 'RegistrationSuccessful!' }
                 }} /> : 
-                <IonGrid id="page">
+                <IonGrid id="SignUp-page">
                     <IonRow className="row">
                         <IonCol className="form-col" size="12" size-md="4">
                             <IonCard className="ion-padding">

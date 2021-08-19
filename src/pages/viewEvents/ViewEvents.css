@@ -2,3 +2,9 @@ ion-grid.events{
     grid-template-columns: repeat(2, 1fr);
     /* grid-auto-rows: 1fr; */
 }
+
+.contain{
+    height: 100vh;
+    border: 2px solid red;
+
+}
