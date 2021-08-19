@@ -1,0 +1,131 @@
+.main-content{
+    width: 100%;
+    height: 100%;
+    display: flex ;
+    flex-flow: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+#eventholder{
+    width: 50rem;
+    height: auto;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    overflow-y: auto;
+}
+
+#img-head{
+    width: 100%;
+    height: 20rem;
+}
+
+#img-head img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+#event-details{
+    padding: 1rem;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-flow: column;
+    flex-wrap: nowrap;
+}
+
+#event-direction{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: space-between;   
+}
+
+
+
+#attendees-holder{
+    width: 100%;
+    height: auto;
+    overflow-y: auto;
+}
+
+#attendees-list{
+    width: 100%;
+    height: auto;
+    padding: 0.2rem;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+}
+
+.attendee-item{
+    margin: 0.2rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 0.4rem;
+    background-color: blanchedalmond;
+}
+
+.attendee-item:hover{
+    opacity: 0.9;
+}
+
+#event-bottom{
+    width: 100%;
+    height: auto;
+    background-color: grey;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0.5rem;
+
+}
+
+#event-bottom p, #event-bottom h2{
+    margin: 0;
+}
+
+#event-bottom .e-direct{
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 0.5rem;
+}
+
+#event-bottom  .e-direct .e-duration, #event-bottom .e-join-group{
+    margin-left: 0.5rem;
+}
+
+.e-join-group{
+    text-decoration: none;
+    color: #000;
+}
+
+@media  screen and (max-width: 600px) {
+    #eventholder{
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        overflow-y: auto;
+    }
+
+    .e-venue{
+        width: 100%;
+    }
+
+    #event-bottom .e-name, #event-bottom .e-direct, #event-bottom .e-join-group{
+        margin-bottom: 0.5rem;
+    }
+    
+}

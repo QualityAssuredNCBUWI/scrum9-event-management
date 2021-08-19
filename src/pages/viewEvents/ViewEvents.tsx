@@ -25,7 +25,7 @@ const ViewEvents: React.FC = () => {
     const [end_date, setEndDate] = useState<string>();
     const [auth, setAuth] = useState<boolean>(isloggedin());
     
-    const handleSearch = (event:any) =>{
+    const handleSearch = (event:any) => {
         let value = event.target.value.toLowerCase();
         // console.log(value);
         let result = [];
