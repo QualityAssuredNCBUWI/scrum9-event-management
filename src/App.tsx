@@ -30,6 +30,7 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import ViewEvent from './pages/viewEvent/ViewEvent';
+import CreateEvents from './pages/createEvent/CreateEvent';
 
 const App: React.FC = () => (
   <IonApp>
@@ -57,6 +58,9 @@ const App: React.FC = () => (
           <ViewGroups />
         </Route>
         <Route exact path="/group/:group_id" component={ViewGroup}>
+        </Route>
+        <Route exact path="/create_event">
+          <CreateEvents />
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />
