@@ -2,7 +2,7 @@ import { IonCol, IonContent, IonGrid, IonHeader, IonPage, IonRow, IonTitle, IonT
 import { calendarNumberSharp } from 'ionicons/icons';
 import { useState } from 'react';
 import { Redirect } from 'react-router';
-import { isloggedin, API_LOC } from '../../services/ApiServices';
+import { isloggedin, API_LOC, API_LOC_SEC } from '../../services/ApiServices';
 import Menu from '../../components/Menu';
 
 interface User {
@@ -92,7 +92,7 @@ const ViewProfile: React.FC = () => {
                         <IonRow>
                             <IonCol>
                                 <IonCard>
-                                    <IonImg src='assets/matty-adame-nLUb9GThIcg-unsplash.jpg'/>
+                                    <IonImg src={API_LOC+user.profile_photo}/>
                                     <IonCardHeader>
                                         <IonCardSubtitle>
                                             {user.email}
