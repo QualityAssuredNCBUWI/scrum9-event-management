@@ -23,7 +23,7 @@ const Login: React.FC = () => {
 
         async function login(){
             // import service call to get all events here
-            const response = await fetch(`${API_LOC}/api/auth/login`,{
+            const response = await fetch(`${API_LOC}api/auth/login`,{
                 headers: {
                     'Content-Type': 'application/json'
                     // 'Content-Type': 'application/x-www-form-urlencoded',

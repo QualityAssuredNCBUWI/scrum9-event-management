@@ -127,7 +127,7 @@ const ViewEvents: React.FC = () => {
                     <IonRow>
                     { filteredEvents.length ? filteredEvents.map((event: i_event) => (
                     <IonCol>
-                        <Event event_id={event.id} event_name={event.title} event_description={event.description} event_date={event.start_date} event_attendance={event.attendance} event_img_url='assets/matty-adame-nLUb9GThIcg-unsplash.jpg'/>
+                        <Event event_id={event.id} event_name={event.title} event_description={event.description} event_date={event.start_date} event_attendance={event.attendance} event_img_url={event.image}/>
                     </IonCol>
                     )) : <IonItem>No events found</IonItem>}
                     </IonRow>
