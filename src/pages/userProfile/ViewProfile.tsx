@@ -2,7 +2,7 @@ import { IonCol, IonContent, IonGrid, IonHeader, IonPage, IonRow, IonTitle, IonT
 import { calendarNumberSharp } from 'ionicons/icons';
 import { useState } from 'react';
 import { Redirect } from 'react-router';
-import { isloggedin, API_LOC, API_LOC_SEC } from '../../services/ApiServices';
+import { isloggedin, API_LOC } from '../../services/ApiServices';
 import Menu from '../../components/Menu';
 
 interface User {
