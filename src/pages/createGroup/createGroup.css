@@ -8,6 +8,8 @@
     background-size: cover; 
     background-repeat: no-repeat;
     margin: 0;
+    text-align: center;
+    height: 100vh;
     /* position: relative; */
 }
 
@@ -16,22 +18,24 @@ cover-lay {
 
 }
 
-.row{
-    margin: 0;
-}
 .right-col{
     background-color: transparent;
     min-height: 100vh;
+}
 
-  
+
+.row{
+    width: 100%;
+    border: 2px sold red;
 }
 
 .form-col{
     position: relative;
     border: 2px solid rgb(0, 0, 0);
-    background-color: rgb(144, 177, 192);
+    background-color: #649b6bbd;
     mix-blend-mode: lighten;
     min-height: 100%;
+    width: 70%;
     border-radius: 10px;
     text-align: center;
 }

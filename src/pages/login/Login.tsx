@@ -1,9 +1,11 @@
-import { IonButton, IonCard, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonSplitPane, IonCard, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import './Login.css';
 import { API_LOC, isloggedin } from '../../services/ApiServices'
 import { useState } from 'react';
 import { Redirect } from 'react-router';
 import { eye , eyeOff} from 'ionicons/icons'
+
+
 const Login: React.FC = () => {
 
     const [email, setEmail] = useState('')
@@ -46,6 +48,7 @@ const Login: React.FC = () => {
     }
 
     return (
+
     <IonPage id="page" className="page">
         <IonHeader>
             <IonToolbar>
@@ -57,8 +60,8 @@ const Login: React.FC = () => {
                     pathname: '/home',
                     state: { flash: 'Login Successful!' }
                 }} /> : 
-                <IonGrid id="page">
-                <IonRow className="row">
+                <IonGrid id="login-page">
+                <IonRow className="login-row">
                     <IonCol className="form-col" size="12" size-md="4">
                         <IonCard className="ion-padding">
                             <IonCardTitle className="ion-padding">LOGIN</IonCardTitle>
@@ -97,7 +100,7 @@ const Login: React.FC = () => {
             
             <div className="cover-lay"></div>
         </IonContent>
-    </IonPage>        
+    </IonPage>       
     )
 }
 
