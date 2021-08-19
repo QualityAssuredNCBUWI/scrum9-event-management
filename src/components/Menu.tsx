@@ -23,7 +23,7 @@ const Menu: React.FC<ContainerProps> = ({auth}) => {
               <IonItem routerLink="/home">Home</IonItem>
               {/* <IonItem routerLink="/login">Logout</IonItem> */}
               <IonItem routerLink="/events">Events</IonItem>
-              <IonItem routerLink="/create_event">Create Events</IonItem>
+              <IonItem routerLink="/create_event">Create Event</IonItem>
               <IonItem routerLink="/profile">Profile</IonItem>
               <IonItem routerLink="/groups">My Groups</IonItem>
               <IonItem routerLink="/createGroup">Create Groups</IonItem>
