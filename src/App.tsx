@@ -6,6 +6,8 @@ import Login from './pages/login/Login';
 import SignUp from './pages/signup/SignUp'
 import ViewEvents from './pages/viewEvents/ViewEvents';
 import CreateGroup from './pages/createGroup/createGroup';
+import ViewProfile from './pages/userProfile/ViewProfile';
+import ViewGroups from './pages/viewMyGroups/ViewGroups';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -41,7 +43,13 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/events">
           <ViewEvents />
-        </Route>   
+        </Route>  
+        <Route exact path="/profile">
+          <ViewProfile />
+        </Route>  
+        <Route exact path="/groups">
+          <ViewGroups />
+        </Route>
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>

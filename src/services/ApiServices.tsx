@@ -3,6 +3,12 @@ interface LoginCred {
     password: string
 }
 
+// Production
+export const API_LOC = 'https://du-road-api.herokuapp.com/'
+
+// Development (Place your server here!)
+// export const API_LOC = 'http://127.0.0.1:8079/'
+
 export function login_user(body:LoginCred){
     // send request to endpoint
     console.log("called");
@@ -22,3 +28,13 @@ export function createGroup(body:CreateGroup){
 }
 
 
+export function isloggedin(){
+    let res =  false;
+    if(localStorage.getItem('token')){
+        res = true;
+    } else {
+        res = false;
+    }
+    // console.log(res);
+    return res;
+}

@@ -1,8 +1,11 @@
-import { useIonViewWillEnter, IonCol, IonContent, IonGrid, IonHeader, IonPage, IonRow, IonTitle, IonToolbar, IonItem, IonList, IonMenu, IonSplitPane, IonButtons, IonButton, IonMenuButton, IonSearchbar, IonDatetime, IonIcon } from '@ionic/react';
+import { useIonViewWillEnter, IonCol, IonContent, IonGrid, IonHeader, IonPage, IonRow, IonTitle, IonToolbar, IonItem, IonSplitPane, IonButtons, IonButton, IonMenuButton, IonSearchbar, IonDatetime, IonIcon } from '@ionic/react';
 import { calendarClearOutline } from 'ionicons/icons';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Event from '../../components/Event';
+import Menu from '../../components/Menu';
+import { isloggedin } from '../../services/ApiServices';
 import './ViewEvents.css';
+import { API_LOC } from '../../services/ApiServices';
 
 interface i_event {
     id: number;
@@ -20,7 +23,8 @@ const ViewEvents: React.FC = () => {
     const [filteredEvents,setFilteredEvents] = useState(events);
     const [start_date, setStartDate] = useState<string>();
     const [end_date, setEndDate] = useState<string>();
-
+    const [auth, setAuth] = useState<boolean>(isloggedin());
+    
     const handleSearch = (event:any) =>{
         let value = event.target.value.toLowerCase();
         // console.log(value);
@@ -38,14 +42,14 @@ const ViewEvents: React.FC = () => {
 
         async function getEventsbyDate(){
             // import service call to get all events here
-            const response = await fetch(`http://127.0.0.1:8079/api/events?start_date=${start_date}&end_date=${end_date}`);
-            if(response.status == 200){
+            const response = await fetch(`${API_LOC}api/events?start_date=${start_date}&end_date=${end_date}`);
+            if(response.status === 200){
                 const data = await response.json();
                 console.log(data);
                 // store the data into our news state variable
                 setEvents(data.result);
                 setFilteredEvents(data.result);
-            } else if(response.status == 404){
+            } else if(response.status === 404){
                 setEvents([]);
                 setFilteredEvents([]);
             }
@@ -68,11 +72,12 @@ const ViewEvents: React.FC = () => {
     useIonViewWillEnter(() => {
         // call api
         // console.log("ionWillEnterView event fired");
+        setAuth(isloggedin());
         getEvents();
 
         async function getEvents(){
             // import service call to get all events here
-            const response = await fetch("http://127.0.0.1:8079/api/events");
+            const response = await fetch(API_LOC + "api/events");
             const data = await response.json();
             console.log(data);
             // store the data into our news state variable
@@ -84,21 +89,7 @@ const ViewEvents: React.FC = () => {
     return (
     <IonContent>
         <IonSplitPane contentId="page">
-        {/*--  the side menu  --*/}
-        <IonMenu contentId="page">
-            <IonHeader>
-            <IonToolbar>
-                <IonTitle>Menu</IonTitle>
-            </IonToolbar>
-            </IonHeader>
-            <IonContent>
-            <IonList>
-                <IonItem routerLink="/home">Home</IonItem>
-                <IonItem routerLink="/login">Login</IonItem>
-                <IonItem routerLink="/events">Events</IonItem>
-            </IonList>
-            </IonContent>
-        </IonMenu>
+        <Menu auth={auth} />
         <IonPage id="page" className="page">
             <IonHeader>
                 <IonToolbar>

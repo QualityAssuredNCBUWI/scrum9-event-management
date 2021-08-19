@@ -1,16 +1,48 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonCard, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import './Login.css';
-import { login_user } from '../../services/ApiServices'
+import { API_LOC, isloggedin } from '../../services/ApiServices'
 import { useState } from 'react';
-
+import { Redirect } from 'react-router';
+import { eye , eyeOff} from 'ionicons/icons'
 const Login: React.FC = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
+    const [auth, setAuth] = useState<boolean>(isloggedin());
+    const [passVisible, setPassVisible] = useState(false)
+    
+    function changeVisibility(){
+        setPassVisible(!passVisible)
+    }
     const loginSubmit = (e:any) => {
         const loginBody = {email: email, password: password}
-        login_user(loginBody)
+        login();
+
+
+        async function login(){
+            // import service call to get all events here
+            const response = await fetch(`${API_LOC}/api/auth/login`,{
+                headers: {
+                    'Content-Type': 'application/json'
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                  },
+                method: 'POST',
+                body: JSON.stringify(loginBody)
+            });
+            if(response.status === 200){
+                const data = await response.json();
+                console.log(data);
+                // store the token into localstorage
+                localStorage.setItem('token', data.token);
+                setAuth(true)
+            } else if(response.status === 400 || response.status === 404 || response.status === 500){
+                const data = await response.json();
+                console.log(data);
+                // remove the token from localstorage
+                localStorage.removeItem('token');
+                setAuth(false)
+            }
+        }
     }
 
     return (
@@ -21,33 +53,48 @@ const Login: React.FC = () => {
             </IonToolbar>
         </IonHeader>
         <IonContent  className="contain" fullscreen>
-            <IonGrid id="page">
+            { auth ? <Redirect to={{
+                    pathname: '/home',
+                    state: { flash: 'Login Successful!' }
+                }} /> : 
+                <IonGrid id="page">
                 <IonRow className="row">
                     <IonCol className="form-col" size="12" size-md="4">
-                        <div className="form-container">
-                            <h2>LOGIN</h2>
-                            <IonInput 
-                                className="input" 
-                                type="email" 
-                                placeholder="Email" 
-                                onIonChange= {(e:any) => setEmail(e.target.value)}
-                            />
-                            <IonInput 
-                                className="input mt-2" 
-                                type="password" 
-                                placeholder="Password" 
-                                onIonChange= {(e:any) => setPassword(e.target.value)}
-                            />
-                            <div className="action-buttons">
-                                <IonButton fill="outline" routerLink="/home" color="danger">Cancel</IonButton>
-                                <IonButton fill="outline" onClick={loginSubmit} color="success">submit </IonButton>
-                            </div>
-                        </div>
+                        <IonCard className="ion-padding">
+                            <IonCardTitle className="ion-padding">LOGIN</IonCardTitle>
+                            <IonGrid>
+                                <IonRow>
+                                    <IonCol size="12">
+                                        <IonItem>
+                                            <IonLabel position="floating">Email</IonLabel>
+                                            <IonInput   type="email" placeholder="Email" onIonChange= {(e:any) => setEmail(e.target.value)}/>
+                                        </IonItem>
+                                    </IonCol>
+                                    <IonCol size="12">
+                                        <IonItem>
+                                                <IonLabel position="floating">Password</IonLabel>
+                                                <IonInput type={passVisible? "text" : "password"} onIonChange= {(e:any) => setPassword(e.target.value)}></IonInput>
+                                                <IonButton onClick={() => changeVisibility()} slot="end" fill="clear"><IonIcon icon={passVisible? eye : eyeOff } ></IonIcon></IonButton>
+                                        </IonItem>
+                                    </IonCol>
+                                </IonRow>
+                                <IonRow>
+                                    <IonCol>
+                                        <IonButton fill="outline" routerLink="/home" color="danger">Cancel</IonButton>
+                                    </IonCol>
+                                    <IonCol>
+                                        <IonButton fill="outline" onClick={loginSubmit} color="success">submit </IonButton>
+                                    </IonCol>
+                                </IonRow>
+                            </IonGrid>
+                        </IonCard>
                     </IonCol>
                     <IonCol id="right-col" className="right-col" size="12" size-md="8">
                     </IonCol>                   
                 </IonRow>
             </IonGrid>
+            }
+            
             <div className="cover-lay"></div>
         </IonContent>
     </IonPage>        
