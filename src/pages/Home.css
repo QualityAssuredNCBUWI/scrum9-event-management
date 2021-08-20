@@ -1,9 +1,21 @@
-.top-segment {
-  background-color: #008036;
+.top-segment-home {
+  background: 
+  linear-gradient(
+      #ffe058a8,
+      #008035b9
+  ),
+  url('./levi-guzman-zdSoe8za6Hs-unsplash.jpg');
+  background-size: cover; ;
   /* height: 50vh; */
   justify-content: center;
   align-content: center;
   margin-bottom: 5px;
+  height: 50%;
+  border-radius: 30px;
+}
+
+img{
+  height: 80px;
 }
 
 .mid-segment {
@@ -12,21 +24,27 @@
 }
 
 /* Layout */
-.top-segment .content {
+.top-segment-home .content {
   margin-left: 5vw;
   margin-right: 5vw;
   text-align: center;
   height: 100%;
 }
 
-.top-segment h3 {
+.top-segment-home h3 {
   font-size: 60px;
   font-weight: 700;
   color: azure;
   font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 
-.top-segment ion-button {
+.top-segment-home h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: rgb(7, 7, 7);
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+.top-segment-home ion-button {
   color: black;
 }
 
@@ -65,26 +83,48 @@ ion-button:hover {
   color: black;
 }
 
+.top-segment-home h5 {
+  margin-left: 0.5rem;
+  color: azure;
+  font-weight: 600;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
 @media screen and (max-width: 480px) {
   /* CSS  for mobile  */
 
-  .top-segment h4 {
+  .top-segment-home {
+    background: 
+    linear-gradient(
+        #008035b9,
+        #ffe058a8
+    ),
+    url('./levi-guzman-zdSoe8za6Hs-unsplash.jpg');
+    background-size: cover; ;
+    /* height: 50vh; */
+    justify-content: center;
+    align-content: center;
+    margin-bottom: 5px;
+    height: 40vh;
+  }
+
+  .top-segment-home h4 {
     font-size: 30px;
     font-weight: 700;
     margin-left: 0.5rem;
     color: rgb(0, 0, 0);
   }
 
-  .top-segment ion-button {
+  .top-segment-home ion-button {
     color: azure;
     border-color: azure;
   }
 
-  .top-segment h5 {
+  .top-segment-home h5 {
     margin-left: 0.5rem;
   }
 
-  .top-segment {
+  .top-segment-home {
     background-color: #008036;
     height: 40vh;
     justify-content: center;

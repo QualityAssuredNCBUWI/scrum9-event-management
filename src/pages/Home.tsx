@@ -24,6 +24,7 @@ import Menu from '../components/Menu';
 import Event from '../components/Event';
 import { API_LOC, isloggedin } from '../services/ApiServices';
 import './Home.css';
+import logo from './logo.png';
 
 interface i_event {
   id: number;
@@ -133,9 +134,10 @@ const Home: React.FC<Log> = ({location}) => {
               </IonToolbar>
           </IonHeader>
           <IonContent fullscreen>
-            <div className="top-segment">
-              <div className="content">
-                <h3>DU ROAD</h3>
+            <div className="top-segment-home">
+              <div className="content ">
+                <h3 className="ion-hide-sm-up">DU ROAD</h3>
+                <img src={logo} className="ion-hide-md-down"></img>
                 <h4>Event management system</h4>
                 <h5>Mek Wi Du Road Nuh</h5>
                 {auth ? 

@@ -11,6 +11,10 @@
     /* position: relative; */
 }
 
+.content{
+    height: 100%;
+}
+
 @media screen and (max-width: 480px) {
     #SignUp-page {
         background: 
